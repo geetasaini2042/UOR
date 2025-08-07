@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ page.title }} | SingodiyaTech</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      max-width: 850px;
+      margin: auto;
+      padding: 20px;
+      background: #f9f9f9;
+      color: #222;
+    }
+    a {
+      color: #e91e63;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    header {
+      background: #003366;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    header img {
+      height: 60px;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      margin: 0;
+      color: white;
+    }
+
+    main {
+      padding: 20px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+
+    h1, h2, h3 {
+      color: #1a73e8;
+      margin-bottom: 10px;
+    }
+
+    p, ul, ol {
+      margin-bottom: 15px;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 0.9em;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/d/d2/University_of_Rajasthan_Logo.svg/1200px-University_of_Rajasthan_Logo.svg.png" alt="University Logo">
+    <h1>Rajasthan University</h1>
+  </header>
+
+  <main>
+    {{ content }}
+  </main>
+
+  <footer>
+    <hr style="margin: 20px 0;"/>
+    © {{ "now" | date: "%Y" }} edumate.life — Powered by Jekyll & GitHub Pages
+  </footer>
+
+</body>
+</html>
