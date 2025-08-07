@@ -3,87 +3,124 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ page.title }} | SingodiyaTech</title>
+  <title>{{ page.title }} | Rajasthan University</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <style>
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
-    }
-    body {
-      font-family: 'Inter', sans-serif;
-      max-width: 850px;
-      margin: auto;
-      padding: 20px;
-      background: #f9f9f9;
-      color: #222;
-    }
-    a {
-      color: #e91e63;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
+      box-sizing: border-box;
     }
 
-    header {
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f9f9f9;
+      color: #222;
+      max-width: 960px;
+      margin: auto;
+    }
+
+    /* === Header/Drawer === */
+    .navbar {
       background: #003366;
       color: white;
-      padding: 15px;
-      text-align: center;
-      border-radius: 8px;
-      margin-bottom: 30px;
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      justify-content: center;
-      gap: 15px;
+      padding: 10px 15px;
       flex-wrap: wrap;
     }
 
-    header img {
-      height: 60px;
+    .navbar-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
-    header h1 {
-      font-size: 1.8rem;
-      margin: 0;
+    .navbar-left img {
+      height: 45px;
+    }
+
+    .navbar-left h1 {
+      font-size: 1.5rem;
       color: white;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding-top: 10px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 5px 10px;
+      border-radius: 4px;
+      transition: background 0.3s;
+    }
+
+    .nav-links a:hover {
+      background: rgba(255, 255, 255, 0.1);
     }
 
     main {
       padding: 20px;
       background: white;
+      margin: 20px;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.05);
     }
 
-    h1, h2, h3 {
-      color: #1a73e8;
-      margin-bottom: 10px;
-    }
-
-    p, ul, ol {
-      margin-bottom: 15px;
-    }
-
-    ul {
-      padding-left: 20px;
-    }
-
     footer {
       text-align: center;
-      margin-top: 50px;
       font-size: 0.9em;
       color: #555;
+      margin: 40px 0 20px;
+    }
+
+    h1, h2, h3 {
+      color: #1a73e8;
+    }
+
+    a {
+      color: #e91e63;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      .navbar-left h1 {
+        font-size: 1.2rem;
+      }
+      .nav-links {
+        flex-direction: column;
+        align-items: center;
+      }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/d/d2/University_of_Rajasthan_Logo.svg/1200px-University_of_Rajasthan_Logo.svg.png" alt="University Logo">
-    <h1>Rajasthan University</h1>
+  <header class="navbar">
+    <div class="navbar-left">
+      <img src="https://upload.wikimedia.org/wikipedia/en/thumb/d/d2/University_of_Rajasthan_Logo.svg/1200px-University_of_Rajasthan_Logo.svg.png" alt="University Logo">
+      <h1>Rajasthan University</h1>
+    </div>
+    <nav class="nav-links">
+      <a href="https://uor.edumate.life/">🏠 Home</a>
+      <a href="/admission">🎓 Admission</a>
+      <a href="/syllabus">📘 Syllabus</a>
+      <a href="/result">📄 Result</a>
+      <a href="/study-materials">📚 Study Materials</a>
+      <a href="/notifications">🔔 Notifications</a>
+    </nav>
   </header>
 
   <main>
@@ -91,7 +128,7 @@
   </main>
 
   <footer>
-    <hr style="margin: 20px 0;"/>
+    <hr style="margin: 20px 0;">
     © {{ "now" | date: "%Y" }} edumate.life — Powered by Jekyll & GitHub Pages
   </footer>
 
