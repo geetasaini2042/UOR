@@ -1,136 +1,86 @@
-<!DOCTYPE html>
-<html lang="hi">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ page.title }} | Rajasthan University</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+---
+layout: compress
+---
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #f9f9f9;
-      color: #222;
-      max-width: 960px;
-      margin: auto;
-    }
+<!doctype html>
 
-    /* === Header/Drawer === */
-    .navbar {
-      background: #003366;
-      color: white;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 15px;
-      flex-wrap: wrap;
-    }
+{% include origin-type.html %}
 
-    .navbar-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+{% include lang.html %}
 
-    .navbar-left img {
-      height: 45px;
-    }
+{% if site.theme_mode %}
+  {% capture prefer_mode %}data-mode="{{ site.theme_mode }}"{% endcapture %}
+{% endif %}
 
-    .navbar-left h1 {
-      font-size: 1.5rem;
-      color: white;
-    }
+<!-- `site.alt_lang` can specify a language different from the UI -->
+<html lang="{{ page.lang | default: site.alt_lang | default: site.lang }}" {{ prefer_mode }}>
+  {% include head.html %}
 
-    .nav-links {
-      display: flex;
-      gap: 15px;
-      flex-wrap: wrap;
-      justify-content: center;
-      padding-top: 10px;
-    }
+  <body>
+    {% include sidebar.html lang=lang %}
 
-    .nav-links a {
-      color: white;
-      text-decoration: none;
-      font-weight: 500;
-      padding: 5px 10px;
-      border-radius: 4px;
-      transition: background 0.3s;
-    }
+    <div id="main-wrapper" class="d-flex justify-content-center">
+      <div class="container d-flex flex-column px-xxl-5">
+        {% include topbar.html lang=lang %}
 
-    .nav-links a:hover {
-      background: rgba(255, 255, 255, 0.1);
-    }
+        <div class="row flex-grow-1">
+          <main aria-label="Main Content" class="col-12 col-lg-11 col-xl-9 px-md-4">
+            {% if layout.refactor or layout.layout == 'default' %}
+              {% include refactor-content.html content=content lang=lang %}
+            {% else %}
+              {{ content }}
+            {% endif %}
+          </main>
 
-    main {
-      padding: 20px;
-      background: white;
-      margin: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.05);
-    }
+          <!-- panel -->
+          <aside aria-label="Panel" id="panel-wrapper" class="col-xl-3 ps-2 text-muted">
+            <div class="access">
+              {% include_cached update-list.html lang=lang %}
+              {% include_cached trending-tags.html lang=lang %}
+            </div>
 
-    footer {
-      text-align: center;
-      font-size: 0.9em;
-      color: #555;
-      margin: 40px 0 20px;
-    }
+            {% for _include in layout.panel_includes %}
+              {% assign _include_path = _include | append: '.html' %}
+              {% include {{ _include_path }} lang=lang %}
+            {% endfor %}
+          </aside>
+        </div>
 
-    h1, h2, h3 {
-      color: #1a73e8;
-    }
+        <div class="row">
+          <!-- tail -->
+          <div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 px-md-4">
+            {% for _include in layout.tail_includes %}
+              {% assign _include_path = _include | append: '.html' %}
+              {% include {{ _include_path }} lang=lang %}
+            {% endfor %}
 
-    a {
-      color: #e91e63;
-      text-decoration: none;
-    }
+            {% include_cached footer.html lang=lang %}
+          </div>
+        </div>
 
-    a:hover {
-      text-decoration: underline;
-    }
+        {% include_cached search-results.html lang=lang %}
+      </div>
 
-    @media (max-width: 600px) {
-      .navbar-left h1 {
-        font-size: 1.2rem;
-      }
-      .nav-links {
-        flex-direction: column;
-        align-items: center;
-      }
-    }
-  </style>
-</head>
-<body>
-
-  <header class="navbar">
-    <div class="navbar-left">
-      <img src="https://upload.wikimedia.org/wikipedia/en/thumb/d/d2/University_of_Rajasthan_Logo.svg/1200px-University_of_Rajasthan_Logo.svg.png" alt="University Logo">
-      <h1>Rajasthan University</h1>
+      <aside aria-label="Scroll to Top">
+        <button id="back-to-top" type="button" class="btn btn-lg btn-box-shadow">
+          <i class="fas fa-angle-up"></i>
+        </button>
+      </aside>
     </div>
-    <nav class="nav-links">
-      <a href="https://uor.edumate.life/">🏠 Home</a>
-      <a href="/admission">🎓 Admission</a>
-      <a href="/syllabus">📘 Syllabus</a>
-      <a href="/result">📄 Result</a>
-      <a href="/study-materials">📚 Study Materials</a>
-      <a href="/notifications">🔔 Notifications</a>
-    </nav>
-  </header>
 
-  <main>
-    {{ content }}
-  </main>
+    <div id="mask" class="d-none position-fixed w-100 h-100 z-1"></div>
 
-  <footer>
-    <hr style="margin: 20px 0;">
-    © {{ "now" | date: "%Y" }} edumate.life — Powered by Jekyll & GitHub Pages
-  </footer>
+    {% if site.pwa.enabled %}
+      {% include_cached notification.html lang=lang %}
+    {% endif %}
 
-</body>
+    <!-- Embedded scripts -->
+
+    {% for _include in layout.script_includes %}
+      {% assign _include_path = _include | append: '.html' %}
+      {% include {{ _include_path }} %}
+    {% endfor %}
+
+    {% include_cached search-loader.html lang=lang %}
+  </body>
 </html>
